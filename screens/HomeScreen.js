@@ -81,18 +81,16 @@ const HomeScreen = () => {
       </View>
 
       {/* Scrollable content */}
-      <ScrollView style={styles.scrollContainer}>
         <View style={styles.pharmaciesContainer}>
           <Text style={styles.sectionTitle}>Nearby Pharmacies</Text>
           <FlatList
             data={pharmacies}
-            keyExtractor={(item, index) => item.id.toString()}
+            keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
               <PharmacyCard pharmacy={item} onPress={() => goToPharmacyDetails(item)} />
             )}
           />
         </View>
-      </ScrollView>
 
       {/* Footer */}
       <View style={styles.footer}>

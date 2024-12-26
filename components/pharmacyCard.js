@@ -6,7 +6,7 @@ const PharmacyCard = ({ pharmacy, onPress }) => {
         <TouchableOpacity style={styles.card} onPress={onPress}>
 
             <Image
-                source={pharmacy.image ? { uri: pharmacy.image } : require('../assets/images/addis.jpeg')}
+                source={pharmacy.image}
                 style={styles.image}
                 resizeMode="cover"
             />

@@ -1,6 +1,17 @@
 import React, { createContext, useState, useContext } from 'react';
-import addisImage from "../assets/images/addis.jpeg";
-import kidImage from '../assets/images/kidanemihiret.jpg'; 
+import { Asset } from 'expo-asset';
+
+const addisImage = Asset.fromModule(require('../assets/images/addis.jpeg')).uri;
+const kidImage = Asset.fromModule(require('../assets/images/kidanemihiret.jpg')).uri;
+const geliImage = Asset.fromModule(require('../assets/images/gelila.jpeg')).uri;
+const keymwsikelImage = Asset.fromModule(require('../assets/images/keymesekel.jpeg')).uri;
+const selamImage = Asset.fromModule(require('../assets/images/selam.jpeg')).uri;
+
+// Then use these URIs in your component
+
+
+
+
 
 // Create the PharmacyContext
 export const PharmacyContext = createContext();
@@ -14,7 +25,7 @@ export const PharmacyProvider = ({ children }) => {
       location: 'Location 1',
       address: '456 Elm St',
       distance: 1.2,
-      image: require("../assets/images/gelila.jpeg"),
+      image: geliImage,
       drugsAvailable: ['Drug 1', 'Drug 2']
     },
     {
@@ -32,7 +43,7 @@ export const PharmacyProvider = ({ children }) => {
       address: '123 Main St',
       distance: 2.5,
       drugsAvailable: ['Drug 3', 'Drug 4'],
-      image: require("../assets/images/selam.jpeg"),
+      image: selamImage,
 
     },
     {
@@ -41,7 +52,7 @@ export const PharmacyProvider = ({ children }) => {
       address: '456 Elm St',
       distance: 1.2,
       drugsAvailable: ['Drug 3', 'Drug 4'],
-      image: require("../assets/images/keymesekel.jpeg"),
+      image: keymwsikelImage,
 
     },
     {

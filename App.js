@@ -21,7 +21,6 @@ export default function App() {
           component={HomeScreen}
           options={{ title: 'DrugSearch' }} // Set the title of the screen
         />
-        {/* Add more screens here if needed */}
       </Stack.Navigator>
       <StatusBar style="auto" />
       </NavigationContainer>
