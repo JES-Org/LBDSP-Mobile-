@@ -1,25 +1,21 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, Text, TextInput, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { View, ScrollView, Text, TextInput, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import * as Location from 'expo-location';
 import { PharmacyContext } from '../contexts/PharmacyContext'; // Adjust path as needed
 import { LocationContext } from '../contexts/LocationContext'; // Adjust path as needed
 import { Ionicons } from '@expo/vector-icons';
-
-const PharmacyCard = ({ pharmacy, onPress }) => (
-  <TouchableOpacity style={styles.card} onPress={onPress}>
-    <Text style={styles.pharmacyName}>{pharmacy.name}</Text>
-    <Text>{pharmacy.address}</Text>
-    <Text>{pharmacy.distance} km away</Text>
-  </TouchableOpacity>
-);
+import PharmacyCard from '../components/PharmacyCard';
 
 const HomeScreen = () => {
+
   const [pharmacySearch, setPharmacySearch] = useState('');
   const [medicationSearch, setMedicationSearch] = useState('');
   const [errorMsg, setErrorMsg] = useState(null);
 
   const { pharmacies, setPharmacies } = useContext(PharmacyContext);
+  const [filteredPharmacies, setFilteredPharmacies] = useState(pharmacies);
+
   const { updateLocation } = useContext(LocationContext);
   const navigation = useNavigation();
 
@@ -33,22 +29,14 @@ const HomeScreen = () => {
 
       let location = await Location.getCurrentPositionAsync({});
       updateLocation(location.coords.latitude, location.coords.longitude);
-
-      const nearbyPharmacies = [
-        { id: 1, name: 'Pharmacy A', address: '123 Main St', distance: 2.5 },
-        { id: 2, name: 'Pharmacy B', address: '456 Elm St', distance: 1.2 },
-        { id: 3, name: 'Pharmacy C', address: '789 Oak St', distance: 3.8 },
-      ];
-
-      setPharmacies(nearbyPharmacies.sort((a, b) => a.distance - b.distance));
     })();
   }, []);
 
   const handlePharmacySearch = () => {
-    const filteredPharmacies = pharmacies.filter(pharmacy =>
+    const filtered = pharmacies.filter(pharmacy =>
       pharmacy.name.toLowerCase().includes(pharmacySearch.toLowerCase())
     );
-    setPharmacies(filteredPharmacies);
+    setFilteredPharmacies(filtered);
   };
 
   const handleMedicationSearch = () => {
@@ -92,17 +80,19 @@ const HomeScreen = () => {
         <Ionicons name="search" size={24} color="black" onPress={handleMedicationSearch} />
       </View>
 
-      {/* Pharmacies List */}
-      <View style={styles.pharmaciesContainer}>
-        <Text style={styles.sectionTitle}>Nearby Pharmacies</Text>
-        <FlatList
-          data={pharmacies}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <PharmacyCard pharmacy={item} onPress={() => goToPharmacyDetails(item)} />
-          )}
-        />
-      </View>
+      {/* Scrollable content */}
+      <ScrollView style={styles.scrollContainer}>
+        <View style={styles.pharmaciesContainer}>
+          <Text style={styles.sectionTitle}>Nearby Pharmacies</Text>
+          <FlatList
+            data={pharmacies}
+            keyExtractor={(item, index) => item.id.toString()}
+            renderItem={({ item }) => (
+              <PharmacyCard pharmacy={item} onPress={() => goToPharmacyDetails(item)} />
+            )}
+          />
+        </View>
+      </ScrollView>
 
       {/* Footer */}
       <View style={styles.footer}>
@@ -161,6 +151,9 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
   },
+  scrollContainer: {
+    flex: 1,
+  },
   pharmaciesContainer: {
     flex: 1,
     padding: 20,
@@ -169,17 +162,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
-  },
-  card: {
-    backgroundColor: '#f9f9f9',
-    padding: 15,
-    marginBottom: 10,
-    borderRadius: 10,
-    elevation: 3,
-  },
-  pharmacyName: {
-    fontSize: 16,
-    fontWeight: 'bold',
   },
   footer: {
     flexDirection: 'row',
