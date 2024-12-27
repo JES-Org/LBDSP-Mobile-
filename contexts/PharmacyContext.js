@@ -1,11 +1,12 @@
 import React, { createContext, useState, useContext } from 'react';
 import { Asset } from 'expo-asset';
 
-const addisImage = Asset.fromModule(require('../assets/images/addis.jpeg')).uri;
-const kidImage = Asset.fromModule(require('../assets/images/kidanemihiret.jpg')).uri;
-const geliImage = Asset.fromModule(require('../assets/images/gelila.jpeg')).uri;
-const keymwsikelImage = Asset.fromModule(require('../assets/images/keymesekel.jpeg')).uri;
-const selamImage = Asset.fromModule(require('../assets/images/selam.jpeg')).uri;
+const addisImage = require('../assets/images/addis.jpeg');
+const geliImage = require('../assets/images/gelila.jpeg');
+const kidImage = require('../assets/images/kidanemihiret.jpg');
+const keymwsikelImage = require('../assets/images/keymesekel.jpeg');
+const selamImage = require('../assets/images/selam.jpeg');
+
 
 // Then use these URIs in your component
 

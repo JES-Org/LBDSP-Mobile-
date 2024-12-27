@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import {
   View,
-  ScrollView,
   Text,
   TextInput,
   FlatList,
@@ -60,61 +59,60 @@ const HomeScreen = () => {
 
   return (
     <KeyboardAvoidingView
-    style={styles.container}
-    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-  <ScrollView contentContainerStyle={styles.contentContainer}>
-      {/* Header */}
-      <View style={styles.header}>
-        <Ionicons name="menu" size={28} color="black" />
-        <Text style={styles.headerTitle}>Pharmacy Finder</Text>
-      </View>
-
-      {/* Error Message */}
-      {errorMsg ? <Text style={styles.errorText}>{errorMsg}</Text> : null}
-
-      {/* Search Fields */}
-      <ImageBackground
-        source={require("../assets/images/logo.jpeg")}
-        style={styles.searchBackground}
-          imageStyle={styles.searchBackgroundImage}
-          resizeMode="cover"
-      >
-        <View style={styles.searchContainer}>
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search by pharmacy name"
-            value={pharmacySearch}
-            onChangeText={setPharmacySearch}
-          />
-          <Ionicons
-            name="search"
-            size={24}
-            color="black"
-            onPress={handlePharmacySearch}
-          />
-        </View>
-
-        <View style={styles.searchContainer}>
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search by medication name"
-            value={medicationSearch}
-            onChangeText={setMedicationSearch}
-          />
-          <Ionicons
-            name="search"
-            size={24}
-            color="black"
-            onPress={handleMedicationSearch}
-          />
-        </View>
-      </ImageBackground>
-
-      {/* Scrollable content */}
-      <View style={styles.pharmaciesContainer}>
-        <Text style={styles.sectionTitle}>Nearby Pharmacies in Bahir Dar</Text>
+      <View style={{ flex: 1 }}>
+        {/* Main scrollable content */}
         <FlatList
+          contentContainerStyle={styles.contentContainer}
+          ListHeaderComponent={
+            <>
+              <View style={styles.header}>
+                <Ionicons name="menu" size={28} color="black" />
+                <Text style={styles.headerTitle}>Pharmacy Finder</Text>
+              </View>
+              {errorMsg && <Text style={styles.errorText}>{errorMsg}</Text>}
+
+              {/* Search Fields */}
+              <ImageBackground
+                source={require("../assets/images/logo.jpeg")}
+                style={styles.searchBackground}
+                imageStyle={styles.searchBackgroundImage}
+                resizeMode="cover"
+              >
+                <View style={styles.searchContainer}>
+                  <TextInput
+                    style={styles.searchInput}
+                    placeholder="Search by pharmacy name"
+                    value={pharmacySearch}
+                    onChangeText={setPharmacySearch}
+                  />
+                  <Ionicons
+                    name="search"
+                    size={24}
+                    color="black"
+                    onPress={handlePharmacySearch}
+                  />
+                </View>
+
+                <View style={styles.searchContainer}>
+                  <TextInput
+                    style={styles.searchInput}
+                    placeholder="Search by medication name"
+                    value={medicationSearch}
+                    onChangeText={setMedicationSearch}
+                  />
+                  <Ionicons
+                    name="search"
+                    size={24}
+                    color="black"
+                    onPress={handleMedicationSearch}
+                  />
+                </View>
+              </ImageBackground>
+            </>
+          }
           data={filteredPharmacies}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
@@ -125,8 +123,8 @@ const HomeScreen = () => {
           )}
         />
       </View>
-      </ScrollView>
-      {/* Footer */}
+
+      {/* Footer - Fixed to bottom */}
       <View style={styles.footer}>
         <TouchableOpacity style={styles.footerItem}>
           <Ionicons name="home" size={24} color="black" />
@@ -145,8 +143,7 @@ const HomeScreen = () => {
           <Text>Help</Text>
         </TouchableOpacity>
       </View>
-      </KeyboardAvoidingView>
-
+    </KeyboardAvoidingView>
   );
 };
 

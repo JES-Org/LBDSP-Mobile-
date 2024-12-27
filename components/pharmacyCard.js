@@ -1,17 +1,18 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, Image ,Platform} from "react-native";
 
 const PharmacyCard = ({ pharmacy, onPress }) => {
     return (
         <TouchableOpacity style={styles.card} onPress={onPress}>
 
-            <Image
-                source={pharmacy.image}
-                style={styles.image}
-          resizeMode="cover"
-          alt="pharmacy"
-          defaultSource={require('../assets/images/logo.jpeg')}
-            />
+                  <Image
+                    source={pharmacy.image}
+                    style={styles.image}
+                    resizeMode="cover"
+                    alt="pharmacy"
+                    {...(Platform.OS === 'ios' ? { defaultSource: require('../assets/images/logo.jpeg') } : {})}
+                  />
+
             <View style={styles.infoContainer}>
                 <Text style={styles.pharmacyName}>{pharmacy.name}</Text>
                 <Text style={styles.address}>{pharmacy.address}</Text>
