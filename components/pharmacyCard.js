@@ -8,7 +8,9 @@ const PharmacyCard = ({ pharmacy, onPress }) => {
             <Image
                 source={pharmacy.image}
                 style={styles.image}
-                resizeMode="cover"
+          resizeMode="cover"
+          alt="pharmacy"
+          defaultSource={require('../assets/images/logo.jpeg')}
             />
             <View style={styles.infoContainer}>
                 <Text style={styles.pharmacyName}>{pharmacy.name}</Text>
