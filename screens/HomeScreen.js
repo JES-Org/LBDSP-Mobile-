@@ -111,6 +111,9 @@ const HomeScreen = () => {
                   />
                 </View>
               </ImageBackground>
+              <Text style={styles.sectionTitle}>
+                Nearby Pharmacies in Bahir Dar
+              </Text>
             </>
           }
           data={filteredPharmacies}
@@ -126,19 +129,31 @@ const HomeScreen = () => {
 
       {/* Footer - Fixed to bottom */}
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.footerItem}>
+        <TouchableOpacity
+          style={styles.footerItem}
+          onPress={() => navigation.navigate("Home")}
+        >
           <Ionicons name="home" size={24} color="black" />
           <Text>Home</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.footerItem}>
+        <TouchableOpacity
+          style={styles.footerItem}
+          onPress={() => navigation.navigate("Favorites")}
+        >
           <Ionicons name="heart" size={24} color="black" />
           <Text>Favorites</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.footerItem}>
+        <TouchableOpacity
+          style={styles.footerItem}
+          onPress={() => navigation.navigate("Profile")}
+        >
           <Ionicons name="person" size={24} color="black" />
           <Text>Profile</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.footerItem}>
+        <TouchableOpacity
+          style={styles.footerItem}
+          onPress={() => navigation.navigate("Help")}
+        >
           <Ionicons name="help-circle" size={24} color="black" />
           <Text>Help</Text>
         </TouchableOpacity>

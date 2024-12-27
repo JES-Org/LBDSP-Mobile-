@@ -2,14 +2,13 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
-        flex: 1,
-        backgroundColor: '#fff',
-
-    },
-    contentContainer: {
-        flexGrow: 1,
-        paddingBottom: 80, // Make space for the footer
-      },
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+  contentContainer: {
+    flexGrow: 1,
+    paddingBottom: 80, // Make space for the footer
+  },
   header: {
     flexDirection: "row",
     alignItems: "center",
@@ -56,7 +55,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    marginBottom: 10,
+    marginBottom: 15,
   },
   footer: {
     flexDirection: "row",
