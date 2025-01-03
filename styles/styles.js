@@ -34,11 +34,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   searchBackgroundImage: {
+    backgroundColor:"red",
+     width:"100%",
     opacity: 0.5, // Adjust transparency of the background image
   },
   searchContainer: {
     flexDirection: "row",
     alignItems: "center",
+    padding:10,
     margin: 10,
     paddingHorizontal: 10,
     backgroundColor: "rgba(255, 255, 255, 0.7)", // Transparent background for input fields
@@ -71,6 +74,8 @@ const styles = StyleSheet.create({
   footerItem: {
     alignItems: "center",
   },
+
+
 });
 
 export default styles;

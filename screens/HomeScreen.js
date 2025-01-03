@@ -11,18 +11,17 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import * as Location from "expo-location";
-import { PharmacyContext } from "../contexts/PharmacyContext"; // Adjust path as needed
-import { LocationContext } from "../contexts/LocationContext"; // Adjust path as needed
+import { PharmacyContext } from "../contexts/PharmacyContext"; 
+import { LocationContext } from "../contexts/LocationContext"; 
 import { Ionicons } from "@expo/vector-icons";
 import PharmacyCard from "../components/PharmacyCard";
-import styles from "../styles/styles"; // Import the new styles
+import styles from "../styles/styles"; 
 
 const HomeScreen = () => {
-  const [pharmacySearch, setPharmacySearch] = useState("");
-  const [medicationSearch, setMedicationSearch] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [errorMsg, setErrorMsg] = useState(null);
 
-  const { pharmacies, setPharmacies } = useContext(PharmacyContext);
+  const { pharmacies } = useContext(PharmacyContext);
   const [filteredPharmacies, setFilteredPharmacies] = useState(pharmacies);
 
   const { updateLocation } = useContext(LocationContext);
@@ -41,16 +40,16 @@ const HomeScreen = () => {
     })();
   }, []);
 
-  const handlePharmacySearch = () => {
-    const filtered = pharmacies.filter((pharmacy) =>
-      pharmacy.name.toLowerCase().includes(pharmacySearch.toLowerCase())
+  const handleSearch = () => {
+    const query = searchQuery.toLowerCase();
+    const filtered = pharmacies.filter(
+      (pharmacy) =>
+        pharmacy.name.toLowerCase().includes(query) ||
+        pharmacy.drugsAvailable.some((drug) =>
+          drug.toLowerCase().includes(query)
+        )
     );
     setFilteredPharmacies(filtered);
-  };
-
-  const handleMedicationSearch = () => {
-    // Placeholder for medication search logic
-    alert("Search for medication: " + medicationSearch);
   };
 
   const goToPharmacyDetails = (pharmacy) => {
@@ -63,7 +62,6 @@ const HomeScreen = () => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <View style={{ flex: 1 }}>
-        {/* Main scrollable content */}
         <FlatList
           contentContainerStyle={styles.contentContainer}
           ListHeaderComponent={
@@ -74,40 +72,23 @@ const HomeScreen = () => {
               </View>
               {errorMsg && <Text style={styles.errorText}>{errorMsg}</Text>}
 
-              {/* Search Fields */}
               <ImageBackground
                 source={require("../assets/images/logo.jpeg")}
                 style={styles.searchBackground}
                 imageStyle={styles.searchBackgroundImage}
-                resizeMode="cover"
               >
                 <View style={styles.searchContainer}>
                   <TextInput
                     style={styles.searchInput}
-                    placeholder="Search by pharmacy name"
-                    value={pharmacySearch}
-                    onChangeText={setPharmacySearch}
+                    placeholder="Search by pharmacy or drug name"
+                    value={searchQuery}
+                    onChangeText={setSearchQuery}
                   />
                   <Ionicons
                     name="search"
                     size={24}
                     color="black"
-                    onPress={handlePharmacySearch}
-                  />
-                </View>
-
-                <View style={styles.searchContainer}>
-                  <TextInput
-                    style={styles.searchInput}
-                    placeholder="Search by medication name"
-                    value={medicationSearch}
-                    onChangeText={setMedicationSearch}
-                  />
-                  <Ionicons
-                    name="search"
-                    size={24}
-                    color="black"
-                    onPress={handleMedicationSearch}
+                    onPress={handleSearch}
                   />
                 </View>
               </ImageBackground>

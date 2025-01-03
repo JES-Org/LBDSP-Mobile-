@@ -26,22 +26,24 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#e6f7ff", // Light blue background
-    padding: 15,
-    marginBottom: 10,
+    backgroundColor: "#e6f7ff", 
+    flex: 1, 
+    margin: 5, 
     borderRadius: 10,
-    elevation: 3,
-    boxShadow: '0px 2px 3.84px rgba(0, 0, 0, 0.25)',
-
-  },
+    elevation: 2,
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 2 },
+    marginBottom: 10,},
   image: {
     width: 80,
     height: 80,
     borderRadius: 10,
-    marginRight: 15, // Space between image and text
+    marginRight: 15, 
   },
   infoContainer: {
-    flex: 1, // Ensures text takes up remaining space
+    flex: 1, 
   },
   pharmacyName: {
     fontSize: 18,
